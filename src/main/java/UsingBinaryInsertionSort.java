@@ -3,49 +3,53 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UsingInsertionSort {
+public class UsingBinaryInsertionSort {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_GREEN_BG = "\u001B[42m";
     public static final String ANSI_RED_BG = "\u001B[41m";
 
     public static final String ANSI_BLACK = "\u001B[30m";
 
-
     public static void main(String[] args) {
         int[] arr = {320, 96, 16, 90, 120, 80, 200, 64};
-        System.out.print("Array before Insertion Sort: ");
+        System.out.print("Array before Binary Insertion Sort: ");
         for (int j : arr) System.out.print(j + " ");
-        insertionSort(arr);
-        System.out.print("\nArray after Insertion Sort: ");
+        binaryInsertionSort(arr);
+        System.out.print("\nArray after Binary Insertion Sort: ");
         for (int j : arr) System.out.print(j + " ");
     }
 
-    public static void insertionSort(@NotNull int[] arr) {
+    public static void binaryInsertionSort(@NotNull int[] arr) {
         int n = arr.length;
-        int key;
+        int key, left, right, mid;
 
         System.out.println("\nStep by step");
         for (int i = 1; i < n; i++) {
             key = arr[i];
-            int j = i - 1;
+            left = 0;
+            right = i - 1;
 
             System.out.println("For i = " + i + ":");
 
-            while (j >= 0 && arr[j] > key) {
-                System.out.println("\tFor j = " + j + ":");
-                System.out.print("\t\tBefore: ");
-                printArray(arr, i - 1);
-                System.out.println("\t\t" + arr[j] + " > " + key + " ?: Yes");
-                System.out.println("\t\t" + arr[j] + " moves up one position");
-                arr[j + 1] = arr[j];
-                j--;
+            while (left <= right) {
+                mid = (left + right) / 2;
+                if (key < arr[mid]) right = mid - 1;
+                else left = mid + 1;
             }
 
-            if (j != -1) System.out.println("\t\t" + arr[j] + " > " + key + " ?: No");
-            else System.out.println("\t\t" + key + " is the smallest element in the subarray");
-            System.out.println("\t\tSo " + key + " is inserted at position " + (j + 1));
-            arr[j + 1] = key;
-            System.out.print("\t\tAfter: ");
+            System.out.println("\tKey = " + key);
+            System.out.println("\tLeft = " + left);
+
+            for (int j = i - 1; j >= left; j--) {
+                arr[j + 1] = arr[j];
+                System.out.println("\tFor j = " + j + ":");
+                System.out.print("\t\tAfter: ");
+                printArray(arr, i - 1);
+            }
+            System.out.println("\n\tSo " + key + " is inserted at position " + left);
+            arr[left] = key;
+
+            System.out.print("\tResult: ");
             printArray(arr, i);
         }
     }
@@ -68,5 +72,4 @@ public class UsingInsertionSort {
         }
         System.out.println();
     }
-
 }
