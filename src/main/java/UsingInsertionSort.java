@@ -3,7 +3,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public class usingInsertionSort {
+public class UsingInsertionSort {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_GREEN_BG = "\u001B[42m";
     public static final String ANSI_RED_BG = "\u001B[41m";
